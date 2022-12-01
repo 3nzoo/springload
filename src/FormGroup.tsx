@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import InputGroup from './components/InputGroup';
 import SelectGroup from './components/SelectGroup';
-import { Colours } from './constants';
+import { Animals, Colours } from './constants';
 
 type Props = {};
 
@@ -11,6 +11,13 @@ const FormGroup = (props: Props) => {
   const [isLengthValid, setIsLengthValid] = useState(true);
   const [passwordLength, setPasswordLength] = useState(0);
   const [selectedRadio, setSeclectedRadio] = useState('');
+  const [tigerSelected, setTigerSelected] = useState(false);
+
+  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === 'Tiger') {
+      setTigerSelected(!tigerSelected);
+    }
+  };
 
   const handleRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSeclectedRadio(e.target.name);
@@ -83,6 +90,26 @@ const FormGroup = (props: Props) => {
         data={Object.values(Colours)}
         onChange={handleRadio}
       />
+
+      <SelectGroup
+        title="Animals"
+        type="checkbox"
+        data={Object.values(Animals)}
+        onChange={handleCheckbox}
+      />
+      {tigerSelected && (
+        <InputGroup
+          data-testid="typeof-tiger"
+          title="Type of Tiger"
+          type="text"
+          required
+          onChange={(e) => {
+            console.log(e.target.value);
+          }}
+        />
+      )}
+
+      <button type="submit"> submit</button>
     </form>
   );
 };
