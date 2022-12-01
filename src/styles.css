@@ -41,3 +41,24 @@ h2 {
   text-align: center;
   margin: 10px;
 }
+
+h3 {
+  margin-top: 10px;
+}
+
+input {
+  margin: 8px;
+  width: auto;
+  min-width: none;
+  padding: 5px;
+}
+
+.inputGroup {
+  min-height: 80px;
+  width: 100%;
+}
+
+button {
+  margin-top: 5px;
+  width: 100%;
+}
