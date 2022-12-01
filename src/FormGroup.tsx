@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import InputGroup from './components/InputGroup';
+import SelectGroup from './components/SelectGroup';
+import { Colours } from './constants';
 
 type Props = {};
 
@@ -8,6 +10,11 @@ const FormGroup = (props: Props) => {
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isLengthValid, setIsLengthValid] = useState(true);
   const [passwordLength, setPasswordLength] = useState(0);
+  const [selectedRadio, setSeclectedRadio] = useState('');
+
+  const handleRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSeclectedRadio(e.target.name);
+  };
 
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 8 && e.target.value.length !== 0) {
@@ -42,6 +49,9 @@ const FormGroup = (props: Props) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (passwordLength === 0) {
+      setIsLengthValid(false);
+    }
     if (emailLength === 0) {
       setIsValidEmail(false);
     }
@@ -65,6 +75,14 @@ const FormGroup = (props: Props) => {
           Password must be longer than 8 characters
         </span>
       )}
+
+      <SelectGroup
+        title="Colour"
+        type="radio"
+        selected={selectedRadio}
+        data={Object.values(Colours)}
+        onChange={handleRadio}
+      />
     </form>
   );
 };
