@@ -6,6 +6,17 @@ type Props = {};
 const FormGroup = (props: Props) => {
   const [emailLength, setEmailLength] = useState(0);
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isLengthValid, setIsLengthValid] = useState(true);
+  const [passwordLength, setPasswordLength] = useState(0);
+
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length <= 8 && e.target.value.length !== 0) {
+      setIsLengthValid(false);
+    } else {
+      setIsLengthValid(true);
+    }
+    setPasswordLength(e.target.value.length);
+  };
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 4) {
@@ -42,6 +53,17 @@ const FormGroup = (props: Props) => {
       <InputGroup title="Email" onChange={handleEmail} />
       {!isValidEmail && (
         <span className="error-control">Invalid email Address</span>
+      )}
+
+      <InputGroup
+        title="Password"
+        type={'password'}
+        onChange={handlePassword}
+      />
+      {!isLengthValid && (
+        <span className="error-control">
+          Password must be longer than 8 characters
+        </span>
       )}
     </form>
   );
